@@ -51,10 +51,6 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
 
             shouldContinue = False
 
-            def skipProductIfCan():
-                if shouldContinue:
-                    continue
-
             productCount += 1
             productAsin = line[0]
 
@@ -168,7 +164,8 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
                     log(f'Cant find Product condition element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
                     shouldContinue = True
                     break
-            skipProductIfCan()
+            if shouldContinue:
+                continue
 
             # ------------------------------ Product SKU ------------------------------ #     
             try:
