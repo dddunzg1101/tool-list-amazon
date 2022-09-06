@@ -1,0 +1,8 @@
+# CSV file
+*.CSV
+
+# driver folder
+driver/chrome.existing
+
+# log folder
+logs
