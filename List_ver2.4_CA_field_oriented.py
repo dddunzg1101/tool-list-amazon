@@ -29,8 +29,8 @@ from datetime import datetime
 #login account và vào url https://sellercentral.amazon.com/inventory
 
 
-# BASE_DIRECTORY = "F:\\ASM Group\\Tool Python"
-BASE_DIRECTORY = "D:\projects\\tool-list-amazon"
+BASE_DIRECTORY = "F:\\ASM Group\\Tool Python"
+# BASE_DIRECTORY = "D:\projects\\tool-list-amazon"
 CSV_FILE_NAME = "Dart_to_Dasanito2.csv"
 
 opt = webdriver.ChromeOptions()
