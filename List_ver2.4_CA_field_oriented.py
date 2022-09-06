@@ -48,6 +48,13 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
     csv_file.seek(0)
     for line in csv_reader:
         try: 
+
+            shouldContinue = False
+
+            def skipProductIfCan():
+                if shouldContinue:
+                    continue
+
             productCount += 1
             productAsin = line[0]
 
@@ -98,40 +105,37 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
                 log('This product use OLD layout', True)
                 newLayout = False
 
-            # # ------------------------------ All attribute mode ------------------------------ # 
-            # while True:
-            #     try:
-            #         allAttributeRadio = driver.find_element_by_xpath(".//input[@type='radio' and @value='ALL_ATTRIBUTES_VIEW_MODE']")
-            #         driver.execute_script("arguments[0].click();", allAttributeRadio)
-            #         # time.sleep(1)
-            #         if (allAttributeRadio is not None):
-            #             break 
-            #     except NoSuchElementException:
-            #         log(f'Cant find All Attribute element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
-            #         continue   
+            # ------------------------------ All attribute mode ------------------------------ # 
+            # try:
+            #     allAttributeRadio = driver.find_element_by_xpath(".//input[@type='radio' and @value='ALL_ATTRIBUTES_VIEW_MODE']")
+            #     driver.execute_script("arguments[0].click();", allAttributeRadio)
+            #     # time.sleep(1)
+            #     if (allAttributeRadio is not None):
+            #         break 
+            # except NoSuchElementException:
+            #     log(f'Cant find All Attribute element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
+            #     continue   
+
 
             # ------------------------------ Advanced View Switch ------------------------------ # 
-            while True:
-                try:
-                    advancedViewSwitch = driver.find_element_by_xpath(".//*[@id='advanced-view-switch']")
-                    advancedViewSwitch.click()
-                    if (advancedViewSwitch is not None):
-                        break 
-                except NoSuchElementException:
-                    log(f'Cant find Advanced View Switch element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
-                    continue
+            try:
+                advancedViewSwitch = driver.find_element_by_xpath(".//*[@id='advanced-view-switch']")
+                advancedViewSwitch.click()
+            except NoSuchElementException:
+                log(f'Cant find Advanced View Switch element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
+                continue 
 
             # ------------------------------ Fulfill by Merchant ------------------------------ # 
-            while True:
-                try:
-                    fbm = driver.find_element_by_xpath(".//input[@type='radio' and @value='MFN']")
-                    driver.execute_script("arguments[0].click();", fbm)
-                    # time.sleep(1)
-                    if (fbm is not None):
-                        break 
-                except NoSuchElementException:
-                    log(f'Cant find Fulfill by Merchant element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
-                    continue
+            try:
+                fbm = driver.find_element_by_xpath(".//input[@type='radio' and @value='MFN']")
+                driver.execute_script("arguments[0].click();", fbm)
+                # time.sleep(1)
+                if (fbm is not None):
+                    break 
+            except NoSuchElementException:
+                log(f'Cant find Fulfill by Merchant element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
+                continue
+
 
             # ------------------------------ Product Condition ------------------------------ #
             _count = 0
@@ -162,7 +166,9 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
                     # time.sleep(1)
                 except NoSuchElementException:
                     log(f'Cant find Product condition element. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
-                    continue
+                    shouldContinue = True
+                    break
+            skipProductIfCan()
 
             # ------------------------------ Product SKU ------------------------------ #     
             try:
@@ -228,6 +234,6 @@ with open(f'{BASE_DIRECTORY}\\Freelancer.csv','r') as csv_file:
             log(f'Catched exception. Check stack trace below. {MOVE_TO_NEXT_PRODUCT_STRING}', True)
             f.write(e)
             continue
-    log(f'End session! {countSuccess}/{productCount} products offer successfully!', True)
+    log(f'End session! {countSuccess} / {productCount} / {row_count} (total) products offer successfully!', True)
     f.close()
 
