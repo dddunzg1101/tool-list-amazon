@@ -24,13 +24,15 @@ from datetime import datetime
 #Setup:
 # 1. Bật command prompt -> cd /d C:\Program Files\Google\Chrome\Application
 # 2. -> chrome.exe --remote-debugging-port=8989 --user-data-dir="F:\ASM Group\Tool Python\driver\chrome.existing"
-# 2. (For dev) -> chrome.exe --remote-debugging-port=8989 --user-data-dir="D:\projects\tool-list-amazon\driver\chrome.existing"
+# 3. (For dev) -> chrome.exe --remote-debugging-port=8989 --user-data-dir="D:\projects\tool-list-amazon\driver\chrome.existing"
+# 4. (For VP) -> chrome.exe --remote-debugging-port=8989 --user-data-dir="C:\Tool Python\tool-list-amazon\driver\chrome.existing"
 #chrome_options.add_argument("--incognito") mở ẩn danh
 #login account và vào url https://sellercentral.amazon.com/inventory
 
 
 BASE_DIRECTORY = "F:\\ASM Group\\Tool Python"
 # BASE_DIRECTORY = "D:\projects\\tool-list-amazon"
+# BASE_DIRECTORY = "C:\\Tool Python\\tool-list-amazon"
 CSV_FILE_NAME = "Dart_to_Dasanito2.csv"
 
 opt = webdriver.ChromeOptions()
